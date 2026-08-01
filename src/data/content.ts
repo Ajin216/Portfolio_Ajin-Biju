@@ -3,7 +3,7 @@ export const PORTFOLIO_DATA = {
     name: "Ajin Biju",
     role: "Software Engineer",
     valueProposition: "Crafting modern, high-performance digital experiences.",
-    bio: "I am a creative developer specializing in building exceptional web experiences. With a focus on design and user interaction, I bring ideas to life using modern web technologies. [Replace this with your actual bio].",
+    bio: "I'm a self-taught full-stack developer passionate about building scalable, real-world web applications from scratch. I enjoy turning ideas into fast, polished products — from architecting the backend to crafting smooth, animated interfaces on the frontend. Over time I've picked up the MERN stack, TypeScript, and modern tooling by building real projects rather than just following tutorials, and I care as much about how something feels to use as how well it's built underneath.",
   },
   skills: [
     "TypeScript",
