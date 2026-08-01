@@ -1,7 +1,7 @@
 export const PORTFOLIO_DATA = {
   personal: {
-    name: "[Your Name]",
-    role: "[Your Role / Title]",
+    name: "Ajin Biju",
+    role: "Software Engineer",
     valueProposition: "Crafting modern, high-performance digital experiences.",
     bio: "I am a creative developer specializing in building exceptional web experiences. With a focus on design and user interaction, I bring ideas to life using modern web technologies. [Replace this with your actual bio].",
   },

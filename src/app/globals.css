@@ -3,10 +3,10 @@
 :root {
   --background: #050505;
   --foreground: #fafafa;
-  --accent: #0047FF;
-  --accent-hover: #0036CC;
+  --accent: #00e5ff;
+  --accent-hover: #00b8cc;
   --muted: #1f1f1f;
-  --muted-foreground: #a3a3a3;
+  --muted-foreground: #e5e5e5;
   --card: #0a0a0a;
   --card-foreground: #fafafa;
   --border: #27272a;
