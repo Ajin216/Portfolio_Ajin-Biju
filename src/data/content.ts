@@ -6,14 +6,14 @@ export const PORTFOLIO_DATA = {
     bio: "I'm a self-taught full-stack developer passionate about building scalable, real-world web applications from scratch. I enjoy turning ideas into fast, polished products — from architecting the backend to crafting smooth, animated interfaces on the frontend. Over time I've picked up the MERN stack, TypeScript, and modern tooling by building real projects rather than just following tutorials, and I care as much about how something feels to use as how well it's built underneath.",
   },
   skills: [
-    "TypeScript",
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "Framer Motion",
-    "Node.js",
-    "UI/UX Design",
-    "WebGL",
+    { name: "TypeScript", description: "A strongly typed programming language that builds on JavaScript, giving you better tooling at any scale." },
+    { name: "React", description: "A JavaScript library for building fast, component-based user interfaces." },
+    { name: "Next.js", description: "The React framework for the web, providing server-side rendering and static site generation." },
+    { name: "Tailwind CSS", description: "A utility-first CSS framework packed with classes that can be composed to build any design." },
+    { name: "Framer Motion", description: "A production-ready motion library for React that makes creating animations simple." },
+    { name: "Node.js", description: "An asynchronous event-driven JavaScript runtime designed to build scalable network applications." },
+    { name: "UI/UX Design", description: "The process of creating products that provide meaningful and relevant experiences to users." },
+    { name: "WebGL", description: "A JavaScript API for rendering high-performance interactive 3D and 2D graphics within any compatible web browser." },
   ],
   projects: [
     {

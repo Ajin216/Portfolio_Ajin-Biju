@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import { PORTFOLIO_DATA } from "@/data/content";
 import { PenTool, Box as BoxIcon, Settings, Code2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // Skill Icons Map
 const SkillIcons: Record<string, React.ReactNode> = {
@@ -47,8 +47,20 @@ const SkillIcons: Record<string, React.ReactNode> = {
 };
 
 export function Skills() {
-  const [isPaused, setIsPaused] = useState(false);
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [activeCallout, setActiveCallout] = useState<{
+    skill: any;
+    angle: number;
+  } | null>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  // We use Framer Motion motion values to have precise control over the rotation angles.
+  // This allows us to calculate the absolute angle on the screen instantly for the callouts.
+  const orbitRotation = useMotionValue(0);
+  const reverseRotation = useMotionValue(0);
+  
+  const orbitAnimationRef = useRef<any>(null);
+  const reverseAnimationRef = useRef<any>(null);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -63,8 +75,53 @@ export function Skills() {
     return () => mediaQuery.removeEventListener("change", handleMotionChange);
   }, []);
 
+  const startAnimations = () => {
+    import("framer-motion").then(({ animate }) => {
+      orbitAnimationRef.current = animate(orbitRotation, orbitRotation.get() + 360, {
+        duration: 25,
+        ease: "linear",
+        repeat: Infinity
+      });
+      reverseAnimationRef.current = animate(reverseRotation, reverseRotation.get() - 360, {
+        duration: 25,
+        ease: "linear",
+        repeat: Infinity
+      });
+    });
+  };
+
+  const stopAnimations = () => {
+    if (orbitAnimationRef.current) orbitAnimationRef.current.stop();
+    if (reverseAnimationRef.current) reverseAnimationRef.current.stop();
+  };
+
+  useEffect(() => {
+    if (!prefersReducedMotion) {
+      startAnimations();
+    }
+    return stopAnimations;
+  }, [prefersReducedMotion]);
+
   const skills = PORTFOLIO_DATA.skills;
   const radius = 220; // Radius of the orbit
+
+  const handleMouseEnter = (skill: any, baseAngle: number) => {
+    if (!prefersReducedMotion) stopAnimations();
+    setHoveredSkill(skill.name);
+    
+    // Calculate the absolute visual angle on the screen
+    let currentOrbit = orbitRotation.get() % 360;
+    if (currentOrbit < 0) currentOrbit += 360;
+    let absoluteAngle = (baseAngle + currentOrbit) % 360;
+    
+    setActiveCallout({ skill, angle: absoluteAngle });
+  };
+
+  const handleMouseLeave = () => {
+    if (!prefersReducedMotion) startAnimations();
+    setHoveredSkill(null);
+    setActiveCallout(null);
+  };
 
   // Fallback variants for grid layout on mobile
   const containerVariants = {
@@ -76,7 +133,7 @@ export function Skills() {
   };
 
   return (
-    <section className="py-24 px-6 relative z-10 overflow-hidden">
+    <section className="py-24 px-6 relative z-10 overflow-visible">
       <motion.div 
         initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -99,49 +156,60 @@ export function Skills() {
           </div>
 
           {/* Rotating Orbit Container */}
-          <div 
-            className={`absolute inset-0 z-10 pointer-events-none ${prefersReducedMotion ? '' : 'animate-[spin_25s_linear_infinite]'}`}
-            style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+          <motion.div 
+            className="absolute inset-0 z-10 pointer-events-none"
+            style={{ rotate: prefersReducedMotion ? 0 : orbitRotation }}
           >
-            {skills.map((skill, index) => {
-              const Icon = SkillIcons[skill] || <Code2 className="w-4 h-4" />;
+            {skills.map((skill: any, index) => {
+              const Icon = SkillIcons[skill.name] || <Code2 className="w-4 h-4" />;
               const angle = (index / skills.length) * 360;
               
               return (
                 <div 
-                  key={skill}
+                  key={skill.name}
                   className="absolute left-1/2 top-1/2 w-0 h-0"
                   style={{
                     transform: `rotate(${angle}deg) translate(${radius}px)`
                   }}
                 >
                   {/* The Counter-rotating Badge Container */}
-                  <div 
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 ${prefersReducedMotion ? '' : 'animate-[spin_25s_linear_infinite_reverse]'}`}
-                    style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+                  <motion.div 
+                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                    style={{ rotate: prefersReducedMotion ? 0 : reverseRotation }}
                   >
                     {/* Reverse the initial layout rotation so text is upright */}
                     <div style={{ transform: `rotate(${-angle}deg)` }}>
                       <div 
                         className="pointer-events-auto group relative flex flex-col items-center justify-center w-24 h-24 rounded-2xl bg-card border border-border cursor-pointer transition-all duration-300 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(0,255,255,0.15)] hover:-translate-y-1"
-                        onMouseEnter={() => setIsPaused(true)}
-                        onMouseLeave={() => setIsPaused(false)}
+                        onMouseEnter={() => handleMouseEnter(skill, angle)}
+                        onMouseLeave={handleMouseLeave}
                       >
                         <div className="absolute inset-0 bg-gradient-to-tr from-accent/0 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
                         <div className="relative z-10 text-muted-foreground group-hover:text-accent transition-colors duration-300 mb-2">
                           {Icon}
                         </div>
                         <span className="relative z-10 text-xs font-medium text-foreground group-hover:text-accent transition-colors duration-300 text-center px-1">
-                          {skill}
+                          {skill.name}
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               );
             })}
-          </div>
+          </motion.div>
 
+          {/* Hover Callout Overlay (Absolute) */}
+          <AnimatePresence>
+            {activeCallout && (
+              <CalloutOverlay 
+                skill={activeCallout.skill} 
+                angle={activeCallout.angle} 
+                radius={radius}
+                prefersReducedMotion={prefersReducedMotion} 
+              />
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Mobile/Tablet Grid Fallback */}
@@ -153,32 +221,48 @@ export function Skills() {
           </h3>
           
           <motion.div 
-            className="flex flex-wrap gap-3 justify-center"
+            className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            {skills.map((skill) => {
-              const Icon = SkillIcons[skill] || <Code2 className="w-4 h-4" />;
+            {skills.map((skill: any) => {
+              const Icon = SkillIcons[skill.name] || <Code2 className="w-4 h-4" />;
               return (
                 <motion.div
-                  key={skill}
+                  key={skill.name}
                   variants={{
                     hidden: { opacity: 0, scale: 0.8 },
                     visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } }
                   }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  className="group relative flex items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border overflow-hidden cursor-default transition-all duration-300 hover:border-accent/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.15)]"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  onClick={() => setHoveredSkill(hoveredSkill === skill.name ? null : skill.name)}
+                  className="group relative flex flex-col items-center gap-2 px-4 py-2.5 rounded-xl bg-card border border-border overflow-hidden cursor-pointer transition-all duration-300 hover:border-accent/50 hover:shadow-[0_0_15px_rgba(0,255,255,0.15)] sm:w-auto w-full"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  <div className="relative z-10 text-muted-foreground group-hover:text-accent transition-colors duration-300">
-                    {Icon}
+                  <div className="flex items-center gap-2 w-full justify-center">
+                    <div className="relative z-10 text-muted-foreground group-hover:text-accent transition-colors duration-300">
+                      {Icon}
+                    </div>
+                    <span className="relative z-10 text-sm font-medium text-foreground group-hover:text-accent transition-colors duration-300">
+                      {skill.name}
+                    </span>
                   </div>
-                  <span className="relative z-10 text-sm font-medium text-foreground group-hover:text-accent transition-colors duration-300">
-                    {skill}
-                  </span>
+                  
+                  <AnimatePresence>
+                    {hoveredSkill === skill.name && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                        animate={{ height: "auto", opacity: 1, marginTop: 8 }}
+                        exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                        className="text-xs text-muted-foreground text-center relative z-10 w-full"
+                      >
+                        {skill.description}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               );
             })}
@@ -189,3 +273,64 @@ export function Skills() {
     </section>
   );
 }
+
+const CalloutOverlay = ({ skill, angle, radius, prefersReducedMotion }: any) => {
+  const angleRad = angle * (Math.PI / 180);
+  
+  // Center is at 300,300 (since container is 600x600)
+  const badgeX = 300 + radius * Math.cos(angleRad);
+  const badgeY = 300 + radius * Math.sin(angleRad);
+  
+  // Line starts at edge of badge (radius 48)
+  const startX = badgeX + 48 * Math.cos(angleRad);
+  const startY = badgeY + 48 * Math.sin(angleRad);
+  
+  // Line extends 40px outwards
+  const endX = startX + 40 * Math.cos(angleRad);
+  const endY = startY + 40 * Math.sin(angleRad);
+
+  // Dynamic box alignment logic so it grows away from the line
+  let translateX = "-50%";
+  let translateY = "-50%";
+  
+  if (Math.cos(angleRad) > 0.5) translateX = "0%";
+  else if (Math.cos(angleRad) < -0.5) translateX = "-100%";
+  
+  if (Math.sin(angleRad) > 0.5) translateY = "0%";
+  else if (Math.sin(angleRad) < -0.5) translateY = "-100%";
+
+  return (
+    <div className="absolute inset-0 z-50 pointer-events-none">
+      <svg className="absolute inset-0 w-full h-full overflow-visible">
+        <motion.line 
+          x1={startX} y1={startY} x2={endX} y2={endY}
+          stroke="currentColor" strokeWidth="2" 
+          strokeLinecap="round"
+          className="text-accent"
+          style={{ filter: "drop-shadow(0 0 8px rgba(0, 255, 255, 0.5))" }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { pathLength: 0, opacity: 0 }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { pathLength: 1, opacity: 1 }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { pathLength: 0, opacity: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        />
+      </svg>
+      
+      <motion.div
+        className="absolute w-48 p-3 rounded-xl bg-card border border-accent/50 shadow-[0_0_20px_rgba(0,255,255,0.15)] pointer-events-none"
+        style={{
+          left: endX,
+          top: endY,
+          x: translateX,
+          y: translateY
+        }}
+        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.8 }}
+        animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+        exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.3, ease: "easeOut", delay: prefersReducedMotion ? 0 : 0.1 }}
+      >
+        <h4 className="text-sm font-bold text-foreground mb-1">{skill.name}</h4>
+        <p className="text-xs text-muted-foreground leading-relaxed">{skill.description}</p>
+      </motion.div>
+    </div>
+  );
+};
