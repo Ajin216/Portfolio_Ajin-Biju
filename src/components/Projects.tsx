@@ -14,12 +14,13 @@ interface Project {
   liveLink: string;
   githubLink: string;
   featured?: boolean;
+  main?: boolean;
   status?: string;
 }
 
 export function Projects() {
-  const featuredProjects = PORTFOLIO_DATA.projects.filter((p: any) => p.featured);
-  const regularProjects = PORTFOLIO_DATA.projects.filter((p: any) => !p.featured);
+  const featuredProjects = PORTFOLIO_DATA.projects.filter((p: any) => p.main && p.featured);
+  const regularProjects = PORTFOLIO_DATA.projects.filter((p: any) => p.main && !p.featured);
 
   return (
     <section id="projects" className="py-32 px-6">
@@ -32,10 +33,10 @@ export function Projects() {
           className="mb-16"
         >
           <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-            Selected Works.
+            Main Projects.
           </h2>
           <p className="text-muted-foreground text-lg">
-            A collection of my recent projects.
+            The projects I'm most proud of.
           </p>
         </motion.div>
 
