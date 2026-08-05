@@ -115,9 +115,10 @@ export const PORTFOLIO_DATA = {
   ],
 
   socials: {
-    email: "hello@yourdomain.com",
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-    twitter: "https://twitter.com/yourusername",
+    email: "ajinbijum@gmail.com",
+    github: "https://github.com/Ajin216",
+    linkedin: "https://www.linkedin.com/in/ajin-biju-aa1100315/",
+    whatsapp: "8590838391", // Placeholder for WhatsApp number without + or spaces
+    whatsappMessage: "Hi! I visited your portfolio and wanted to connect.",
   },
 };

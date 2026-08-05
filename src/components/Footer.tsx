@@ -9,7 +9,6 @@ export function Footer() {
   const socialLinks = [
     { name: "GitHub", url: PORTFOLIO_DATA.socials.github, icon: Code },
     { name: "LinkedIn", url: PORTFOLIO_DATA.socials.linkedin, icon: Briefcase },
-    { name: "Twitter", url: PORTFOLIO_DATA.socials.twitter, icon: MessageCircle },
     { name: "Email", url: `mailto:${PORTFOLIO_DATA.socials.email}`, icon: Mail },
   ];
 
