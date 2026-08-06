@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: "Software Developer creating modern web experiences.",
 };
 
+import { Analytics } from "@vercel/analytics/next";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,6 +35,7 @@ export default function RootLayout({
           <Header />
           {children}
         </SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );
