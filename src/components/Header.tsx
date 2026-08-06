@@ -121,7 +121,7 @@ export function Header() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           
-          {/* Logo */}
+          {/* Logo (Left on all screens) */}
           <Logo size={48} onClick={(e) => handleSmoothScroll(e, "#hero")} />
 
           {/* Desktop Navigation */}
@@ -154,15 +154,15 @@ export function Header() {
           {/* CTA Button (Desktop) */}
           <div className="hidden md:flex items-center">
             <a
-              href="#get-in-touch"
-              onClick={(e) => handleSmoothScroll(e, "#get-in-touch")}
+              href="#contact"
+              onClick={(e) => handleSmoothScroll(e, "#contact")}
               className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-accent border border-accent/50 rounded-full hover:bg-accent/10 transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[0_0_15px_rgba(0,229,255,0.2)] focus:outline-none focus:ring-2 focus:ring-accent"
             >
               Let&apos;s Talk
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle (Right on mobile) */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 -mr-2 text-foreground/80 hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-accent rounded-md z-[110]"

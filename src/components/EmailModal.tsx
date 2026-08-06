@@ -94,7 +94,7 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
             onClick={onClose}
             className="absolute inset-0 bg-black/60 backdrop-blur-[8px]"
           />
-          
+
           <motion.div
             ref={modalRef}
             tabIndex={-1}
@@ -108,16 +108,15 @@ export function EmailModal({ isOpen, onClose }: EmailModalProps) {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="relative w-full max-w-xl bg-card border border-accent/20 rounded-2xl shadow-[0_0_40px_-10px_rgba(0,229,255,0.15)] z-10 flex flex-col outline-none overflow-hidden"
           >
-            {/* Subtle decorative glow in background */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none" />
 
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-20 p-2 bg-black/40 hover:bg-black/60 backdrop-blur-md rounded-full text-white/80 hover:text-white transition-colors border border-white/10 focus:outline-none focus:ring-2 focus:ring-accent"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 p-2 bg-black/60 hover:bg-black/80 backdrop-blur-md rounded-full text-white/90 hover:text-white transition-colors border border-white/20 shadow-lg focus:outline-none focus:ring-2 focus:ring-accent"
               aria-label="Close modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             <div className="p-6 sm:p-8 relative z-10">

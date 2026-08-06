@@ -171,22 +171,22 @@ export function Hero() {
 
         {/* CTAs and Socials */}
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
             <a
               href="#projects"
-              className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-black font-medium rounded-full hover:bg-gray-200 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-background"
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-black font-medium rounded-full hover:bg-gray-200 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-background w-full sm:w-auto text-center"
             >
               View Projects
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center px-8 py-3.5 bg-transparent border border-white/20 text-white font-medium rounded-full hover:bg-white/10 hover:border-white/40 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-background"
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-transparent border border-white/20 text-white font-medium rounded-full hover:bg-white/10 hover:border-white/40 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-background w-full sm:w-auto text-center"
             >
               Contact Me
             </a>
           </div>
 
-          <div className="flex items-center gap-5 sm:ml-4">
+          <div className="flex items-center gap-5 sm:ml-4 mt-2 sm:mt-0 justify-center sm:justify-start w-full sm:w-auto">
             <a href={PORTFOLIO_DATA.socials.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent hover:scale-110 hover:-translate-y-1 transition-all duration-300">
               <GithubIcon className="w-5 h-5" />
             </a>
