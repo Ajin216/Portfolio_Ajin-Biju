@@ -155,73 +155,75 @@ export function DemoProjects() {
   };
 
   return (
-    <section id="demo-projects" className="py-16 px-6 relative z-10 border-t border-border/30 overflow-hidden group/section">
-      <div className="max-w-5xl mx-auto relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 flex justify-between items-end"
-        >
-          <div>
-            <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">
-              Demo Projects.
-            </h2>
-            <p className="text-muted-foreground text-base">
-              Other experiments, small projects, and creative coding.
-            </p>
-          </div>
-          
-          {/* Navigation Arrows */}
-          <div className="hidden md:flex gap-2">
-            <button 
-              onClick={() => handleManualScroll('left')}
-              className="p-2 rounded-full border border-border/50 bg-card/20 hover:bg-card/80 text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary z-20"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={() => handleManualScroll('right')}
-              className="p-2 rounded-full border border-border/50 bg-card/20 hover:bg-card/80 text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary z-20"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-        </motion.div>
-
-        <div 
-          className="relative w-full pb-8 pt-2"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {/* Native scroll container */}
-          <div 
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto pb-4 cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+    <>
+      <section id="demo-projects" className="py-16 px-6 relative z-10 border-t border-border/30 overflow-hidden group/section">
+        <div className="max-w-5xl mx-auto relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="mb-10 flex justify-between items-end"
           >
-            {[...Array(2)].map((_, setIndex) => (
-              <div key={setIndex} className="flex gap-6 pr-6" aria-hidden={setIndex === 1}>
-                {demoProjects.map((project: any) => (
-                  <ProjectCard 
-                    key={`${project.id}-${setIndex}`} 
-                    project={project} 
-                    onClick={() => handleCardClick(project)} 
-                  />
-                ))}
-              </div>
-            ))}
+            <div>
+              <h2 className="font-display text-2xl md:text-3xl font-bold mb-2">
+                Demo Projects.
+              </h2>
+              <p className="text-muted-foreground text-base">
+                Other experiments, small projects, and creative coding.
+              </p>
+            </div>
+            
+            {/* Navigation Arrows */}
+            <div className="hidden md:flex gap-2">
+              <button 
+                onClick={() => handleManualScroll('left')}
+                className="p-2 rounded-full border border-border/50 bg-card/20 hover:bg-card/80 text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary z-20"
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={() => handleManualScroll('right')}
+                className="p-2 rounded-full border border-border/50 bg-card/20 hover:bg-card/80 text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary z-20"
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </motion.div>
+
+          <div 
+            className="relative w-full pb-8 pt-2"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* Native scroll container */}
+            <div 
+              ref={scrollRef}
+              className="flex gap-6 overflow-x-auto pb-4 cursor-grab active:cursor-grabbing [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
+              {[...Array(2)].map((_, setIndex) => (
+                <div key={setIndex} className="flex gap-6 pr-6" aria-hidden={setIndex === 1}>
+                  {demoProjects.map((project: any) => (
+                    <ProjectCard 
+                      key={`${project.id}-${setIndex}`} 
+                      project={project} 
+                      onClick={() => handleCardClick(project)} 
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <ProjectModal
         isOpen={!!selectedProject}
         project={selectedProject}
         onClose={handleCloseModal}
       />
-    </section>
+    </>
   );
 }

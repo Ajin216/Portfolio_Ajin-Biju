@@ -5,16 +5,35 @@ export const PORTFOLIO_DATA = {
     valueProposition: "Crafting modern, high-performance digital experiences.",
     bio: "I'm a self-taught full-stack developer passionate about building scalable, real-world web applications from scratch. I enjoy turning ideas into fast, polished products — from architecting the backend to crafting smooth, animated interfaces on the frontend. Over time I've picked up the MERN stack, TypeScript, and modern tooling by building real projects rather than just following tutorials, and I care as much about how something feels to use as how well it's built underneath.",
   },
-  skills: [
-    { name: "TypeScript", description: "A strongly typed programming language that builds on JavaScript, giving you better tooling at any scale." },
-    { name: "React", description: "A JavaScript library for building fast, component-based user interfaces." },
-    { name: "Next.js", description: "The React framework for the web, providing server-side rendering and static site generation." },
-    { name: "Tailwind CSS", description: "A utility-first CSS framework packed with classes that can be composed to build any design." },
-    { name: "Framer Motion", description: "A production-ready motion library for React that makes creating animations simple." },
-    { name: "Node.js", description: "An asynchronous event-driven JavaScript runtime designed to build scalable network applications." },
-    { name: "UI/UX Design", description: "The process of creating products that provide meaningful and relevant experiences to users." },
-    { name: "WebGL", description: "A JavaScript API for rendering high-performance interactive 3D and 2D graphics within any compatible web browser." },
-  ],
+  skills: {
+    frontend: [
+      { name: "React", isCore: true, description: "A JavaScript library for building fast, component-based user interfaces." },
+      { name: "Next.js", isCore: true, description: "The React framework for the web, providing server-side rendering and static site generation." },
+      { name: "TypeScript", isCore: true, description: "A strongly typed programming language that builds on JavaScript, giving you better tooling at any scale." },
+      { name: "Tailwind CSS", isCore: true, description: "A utility-first CSS framework packed with classes that can be composed to build any design." },
+      { name: "Framer Motion", isCore: true, description: "A production-ready motion library for React that makes creating animations simple." },
+      { name: "JavaScript (ES6+)", isCore: false, description: "The core scripting language of the web, enabling dynamic content and interactive interfaces." },
+      { name: "HTML5/CSS3", isCore: false, description: "The foundational markup and styling languages for structuring and presenting content on the web." },
+      { name: "Redux/Zustand", isCore: false, description: "Predictable state management libraries for React applications to handle complex data flows." },
+    ],
+    backend: [
+      { name: "Node.js", isCore: true, description: "An asynchronous event-driven JavaScript runtime designed to build scalable network applications." },
+      { name: "Express.js", isCore: true, description: "A minimal and flexible Node.js web application framework providing a robust set of features." },
+      { name: "REST APIs", isCore: false, description: "Architectural style for designing networked applications and enabling communication between services." },
+      { name: "WebSocket", isCore: false, description: "A communications protocol providing full-duplex communication channels over a single TCP connection." },
+      { name: "JWT/Authentication", isCore: false, description: "JSON Web Tokens used for securely transmitting information and managing user authentication." },
+    ],
+    database: [
+      { name: "MongoDB", isCore: true, description: "A source-available cross-platform document-oriented NoSQL database program." },
+      { name: "Mongoose", isCore: false, description: "An Object Data Modeling (ODM) library for MongoDB and Node.js, providing a rigorous modeling environment." },
+    ],
+    tools: [
+      { name: "Git & GitHub", isCore: false, description: "Version control system and collaborative platform for source code management." },
+      { name: "Postman", isCore: false, description: "An API platform for building and using APIs, simplifying each step of the API lifecycle." },
+      { name: "VS Code", isCore: false, description: "A streamlined code editor with support for development operations like debugging and version control." },
+      { name: "npm/Vite", isCore: false, description: "Package management and a lightning-fast build tool that significantly improves frontend development experience." },
+    ]
+  },
   projects: [
     {
       id: "project-1",
@@ -26,7 +45,7 @@ export const PORTFOLIO_DATA = {
       githubLink: "https://github.com/Ajin216/BookVerse",
       featured: true,
       main: true,
-      status: "Live",
+      // status: "Live",
     },
     {
       id: "project-2",

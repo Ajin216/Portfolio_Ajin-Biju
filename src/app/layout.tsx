@@ -3,6 +3,7 @@ import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import { Header } from "@/components/Header";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} antialiased bg-background text-foreground`}>
         <AnimatedBackground />
         <SmoothScroll>
+          <Header />
           {children}
         </SmoothScroll>
       </body>

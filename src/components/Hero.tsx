@@ -24,7 +24,10 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const ROLES = [
   "SOFTWARE ENGINEER",
   "MERN STACK DEVELOPER",
-  "PROBLEM SOLVER"
+  "PROBLEM SOLVER",
+  "FRONTEND DEVELOPER",
+  "BACKEND DEVELOPER",
+  "FULLSTACK DEVELOPER"
 ];
 
 const TECH_STACK = [
@@ -98,10 +101,10 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-dvh flex items-center justify-center px-6 pt-20 overflow-hidden">
+    <section id="hero" className="relative min-h-dvh flex items-center justify-center px-6 pt-20 overflow-hidden">
       {/* Background abstract element (optional) */}
       <div className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-accent/10 rounded-full blur-[120px] pointer-events-none" />
-      
+
       <motion.div
         className="max-w-5xl w-full z-10"
         variants={containerVariants}
@@ -125,9 +128,9 @@ export function Hero() {
             </AnimatePresence>
           </div>
         </motion.div>
-        
+
         {/* Headline */}
-        <motion.div 
+        <motion.div
           variants={headlineVariants}
           className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1] mb-6"
         >
@@ -146,7 +149,7 @@ export function Hero() {
         </motion.div>
 
         {/* Subtitle */}
-        <motion.p 
+        <motion.p
           variants={itemVariants}
           className="text-muted-foreground text-lg md:text-xl max-w-2xl mb-8 leading-relaxed"
         >
@@ -154,7 +157,7 @@ export function Hero() {
         </motion.p>
 
         {/* Tech Badges */}
-        <motion.div 
+        <motion.div
           variants={badgeContainerVariants}
           className="flex flex-wrap gap-3 mb-10"
         >
@@ -182,7 +185,7 @@ export function Hero() {
               Contact Me
             </a>
           </div>
-          
+
           <div className="flex items-center gap-5 sm:ml-4">
             <a href={PORTFOLIO_DATA.socials.github} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent hover:scale-110 hover:-translate-y-1 transition-all duration-300">
               <GithubIcon className="w-5 h-5" />
@@ -190,9 +193,9 @@ export function Hero() {
             <a href={PORTFOLIO_DATA.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent hover:scale-110 hover:-translate-y-1 transition-all duration-300">
               <LinkedinIcon className="w-5 h-5" />
             </a>
-            <a href="https://leetcode.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent hover:scale-110 hover:-translate-y-1 transition-all duration-300">
+            {/* <a href="https://leetcode.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent hover:scale-110 hover:-translate-y-1 transition-all duration-300">
               <Code className="w-5 h-5" />
-            </a>
+            </a> */}
           </div>
         </motion.div>
       </motion.div>
