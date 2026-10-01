@@ -120,7 +120,17 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                     {project.title}
                   </h2>
                   {project.status && (
-                    <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent bg-accent/10 border border-accent/20 rounded-full">
+                    <span className={`px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full border flex items-center gap-1.5 ${
+                      project.status === 'Live'
+                        ? 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20'
+                        : 'text-accent bg-accent/10 border-accent/20'
+                    }`}>
+                      {project.status === 'Live' && (
+                        <span className="relative flex h-2 w-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                      )}
                       {project.status}
                     </span>
                   )}

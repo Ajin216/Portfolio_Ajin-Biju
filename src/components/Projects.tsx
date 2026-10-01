@@ -147,8 +147,18 @@ function BrowserFrame({ project, isFeatured }: { project: Project, isFeatured?: 
       {/* Image Area */}
       <div className="relative aspect-video bg-background/80 overflow-hidden flex-1 group-hover/frame:bg-background transition-colors duration-500">
         {project.status && (
-          <div className="absolute top-3 right-3 z-30">
-            <span className="text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-background/80 backdrop-blur-md border border-border text-foreground shadow-sm">
+          <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5">
+            <span className={`text-[10px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full backdrop-blur-md border shadow-sm flex items-center gap-1.5 ${
+              project.status === 'Live' 
+                ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' 
+                : 'bg-background/80 text-foreground border-border'
+            }`}>
+              {project.status === 'Live' && (
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+              )}
               {project.status}
             </span>
           </div>
